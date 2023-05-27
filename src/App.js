@@ -16,13 +16,12 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h2> A Budgeting Site </h2>
-        <p> track & categorize your transactions. </p>
-        <br />
         <Nav />
-        <button> + New Transaction + </button>
+        <br />
       </header>
+      <br />
       <main>
+        <br />
         <Routes>
           <Route path='/' element={<Index />} />
           <Route path='/transactions' element={<AllTransactions />} />
