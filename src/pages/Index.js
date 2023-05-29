@@ -5,30 +5,46 @@ import axios from "axios";
 const API = process.env.REACT_APP_API_URL;
 
 export default function Index() {
+  const [transactions, setTransactions] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [color, setColor] = useState('black');
 
-    const [transactions, setTransactions] = useState([]);
+  useEffect(() => {
 
-    const [total, setTotal] = useState(0);
+    axios
+      .get(`${API}/transactions`)
+      .then((response) => {
 
-    useEffect(() => {
-       axios
-        .get(`${API}/transactions`)
-        .then((response) => {
-            setTransactions(response.data);
-            for (let transaction of transactions) {
-                let transactionAmount = transaction.amount;
-                setTotal(transactionAmount =+ transactionAmount)
-            }
-        })
-        .catch(e => console.error('catch', e));
-    }, []);
+        setTransactions(response.data);
 
-    return (
-        <>
-        <h3> Total Amount: {total} </h3>
-        <br />
-        <Transaction transactions={transactions} />
-        <br />
-        </>
-    )
-};
+        const totalAmount = response.data.reduce(
+          (accumulator, transaction) => accumulator + transaction.amount,
+          0
+        );
+
+        setTotal(totalAmount);
+
+        if (totalAmount > 100) {
+          setColor('green');
+        } 
+        else if (0 < totalAmount < 100) {
+          setColor('blue');
+        }
+        else if (totalAmount < 0) {
+          setColor('red')
+        }
+      })
+      .catch((error) => {
+        console.error('catch', error);
+      });
+  }, []);
+
+  return (
+    <>
+      <h3> Total Amount: <p style={{ color: color }}> {total} </p> </h3>
+      <br />
+      <Transaction transactions={transactions} />
+      <br />
+    </>
+  );
+}

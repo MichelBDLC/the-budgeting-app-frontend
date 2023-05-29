@@ -1,0 +1,11 @@
+.transaction a {
+    text-decoration: none;
+    color: black;
+}
+
+.transaction {
+    display: grid;
+    justify-content: center;
+    gap: 7px;
+}
+
