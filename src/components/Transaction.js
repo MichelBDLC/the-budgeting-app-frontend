@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -21,12 +21,14 @@ export default function Transaction(props) {
     return (
         <>
         {
+            //onClick={navigate(`/transactions/${transaction.id}`)}
             props.transactions.map((transaction) => {
 
                 return (
-                    <div key={transaction.id}>
+                    <div key={transaction.id} >
                     <br />
-                    <p> {transaction.date} | {transaction.name} | {transaction.amount} </p>
+                    <Link to={`transactions/${transaction.id}`} className="transaction"> {transaction.date} | {transaction.name} | {transaction.amount} </Link>
+                    <br />
                     <button onClick={() => handleDelete(transaction.id)}> Delete </button>
                     <br />
                     </div>

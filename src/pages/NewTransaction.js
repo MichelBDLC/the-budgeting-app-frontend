@@ -11,24 +11,6 @@ export default function NewTransaction() {
 
     const [transactions, setTransactions] = useState([]);
 
-    const addTransaction = theNewTransaction => {
-        axios
-        .post(`${API}/transactions`, theNewTransaction)
-        .then(response => {
-            setTransactions([...transactions, response.data]);
-            navigate(`/`);
-        }
-            // () => {
-            //     navigate(`/`);
-            //     console.log(theNewTransaction);
-            //     //SUCCESFULL
-            // }
-            ,
-            error => console.error(error)
-        )
-        .catch(c => console.warn('catch', c));
-    };
-
     const [transaction, setTransaction] = useState({
         name: '',
         amount: '',
@@ -36,6 +18,19 @@ export default function NewTransaction() {
         origin: '',
         category: '',
     });
+
+    const addTransaction = theNewTransaction => {
+        axios
+        .post(`${API}/transactions`, theNewTransaction)
+        .then(response => {
+            setTransactions([...transactions, response.data]);
+        //    navigate(`/transactions/${transaction}`);
+           navigate(`/`);
+        },
+            error => console.error(error)
+        )
+        .catch(c => console.warn('catch', c));
+    };
 
     const handleTextChange = event => {
         setTransaction({ ...transaction, [event.target.id]: event.target.value });
