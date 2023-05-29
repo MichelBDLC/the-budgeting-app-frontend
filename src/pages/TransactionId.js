@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "../css/TransactionId.css";
 
 const API = process.env.REACT_APP_API_URL;
 
