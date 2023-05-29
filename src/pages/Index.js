@@ -4,10 +4,9 @@ import axios from "axios";
 
 const API = process.env.REACT_APP_API_URL;
 
-export default function Index() {
+export default function Index(props) {
+
   const [transactions, setTransactions] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [color, setColor] = useState('black');
 
   useEffect(() => {
 
@@ -22,16 +21,16 @@ export default function Index() {
           0
         );
 
-        setTotal(totalAmount);
+        props.setTotal(totalAmount);
 
         if (totalAmount > 100) {
-          setColor('green');
+          props.setColor('green');
         } 
         else if (0 < totalAmount < 100) {
-          setColor('blue');
+          props.setColor('blue');
         }
         else if (totalAmount < 0) {
-          setColor('red')
+          props.setColor('red')
         }
       })
       .catch((error) => {
@@ -41,7 +40,7 @@ export default function Index() {
 
   return (
     <>
-      <h3> Total Amount: <p style={{ color: color }}> {total} </p> </h3>
+      <h3> Total Amount: <p style={{ color: props.color }}> {props.total} </p> </h3>
       <br />
       <Transaction transactions={transactions} />
       <br />
