@@ -1,6 +1,9 @@
-import '../css/Nav.css'
+import '../css/Nav.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function Nav() {
+
+    const navigate = useNavigate();
 
     return (
         <>
@@ -9,7 +12,7 @@ export default function Nav() {
         <p> Track & categorize your transactions. </p>
         </span>
         <br />
-        <button> + New Transaction + </button>
+        <button onClick={() => navigate('/transactions/new')} className='newbtn'> + New Transaction + </button>
         <br />
         </>
     )
